@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* الأرقام في الجداول والمخططات تُعرض لاتينية وفق العرف الهندسي */
+.num {
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* أنماط الطباعة: التقرير وحده يظهر على الورق. */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  /* نُخفي كل ما ليس تقريراً بدل إظهار التقرير فقط: أضمن مع تعدد الحاويات */
+  body > *:not(.print-root),
+  header,
+  .no-print {
+    display: none !important;
+  }
+
+  .print-report {
+    display: block !important;
+  }
+
+  .print-report section {
+    break-inside: avoid;
+  }
+
+  .print-report h2 {
+    break-after: avoid;
+  }
+
+  .print-report table {
+    break-inside: auto;
+  }
+
+  .print-report thead {
+    display: table-header-group;
+  }
+
+  .print-report tr {
+    break-inside: avoid;
+  }
+
+  .print-report figure {
+    border: 1px solid #94a3b8;
+    break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: "";
+  }
+}
